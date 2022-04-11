@@ -1,0 +1,41 @@
+.slider-container {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.slider-track {
+  display: flex;
+  transition: 0.2s;
+}
+
+.slider-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-item img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.slider-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider-prev-btn,
+.slider-next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-prev-btn {
+  left: 5px;
+}
+
+.slider-next-btn {
+  right: 5px;
+}
