@@ -10,30 +10,13 @@ export default function Slider(options = defaultOptions) {
   const { slidesToShow, slidesToScroll } = options;
   let isEnd = false;
   let isStart = true;
+  let itemWidth = null;
+  let movePosition = null;
 
   const container = document.querySelector(options?.selector);
   const track = document.createElement("div");
   track.classList.add("slider-track");
-
-  const buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("slider-btn-container");
-
-  const buttonPrev = document.createElement("button");
-  buttonPrev.setAttribute("class", "slider-prev-btn");
-  buttonPrev.textContent = "prev";
-
-  const buttonNext = document.createElement("button");
-  buttonNext.setAttribute("class", "slider-next-btn");
-  buttonNext.textContent = "next";
-
   const items = init(container, container.children, track, options);
-
-  const itemWidth = container.offsetWidth / slidesToShow;
-  const movePosition = slidesToScroll * itemWidth;
-
-  for (let i = 0; i < items.length; i++) {
-    items[i].style.minWidth = itemWidth + "px";
-  }
 
   function init(container, slides, track, options) {
     Array.from(slides).forEach((slide) => {
@@ -42,13 +25,26 @@ export default function Slider(options = defaultOptions) {
     });
 
     container.appendChild(track);
-    container.appendChild(buttonContainer);
 
     if (options?.buttons) {
+      const buttonPrev = document.createElement("button");
+      buttonPrev.setAttribute("class", "slider-prev-btn");
+      buttonPrev.textContent = "prev";
+
+      const buttonNext = document.createElement("button");
+      buttonNext.setAttribute("class", "slider-next-btn");
+      buttonNext.textContent = "next";
       container.appendChild(buttonPrev);
       buttonPrev.addEventListener("click", toPrev);
       container.appendChild(buttonNext);
       buttonNext.addEventListener("click", toNext);
+    }
+
+    itemWidth = container.offsetWidth / slidesToShow;
+    movePosition = slidesToScroll * itemWidth;
+
+    for (let i = 0; i < track.children.length; i++) {
+      track.children[i].style.minWidth = itemWidth + "px";
     }
 
     return track.children;
