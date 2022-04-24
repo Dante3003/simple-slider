@@ -1,2 +1,2 @@
-import Slider from "../src/slider";
+import Slider from "../src/slider.js";
 const slider = Slider();
