@@ -3,6 +3,7 @@ const defaultOptions = {
   slidesToScroll: 1,
   selector: ".slider-container",
   buttons: true,
+  infinite: true,
 };
 
 export default function Slider(options = defaultOptions) {
@@ -12,15 +13,18 @@ export default function Slider(options = defaultOptions) {
   let isStart = true;
   let itemWidth = null;
   let movePosition = null;
+  let items = [];
 
   const container = document.querySelector(options?.selector);
   const track = document.createElement("div");
   track.classList.add("slider-track");
-  const items = init(container, container.children, track, options);
+  init(container, container.children, track, options);
 
   function init(container, slides, track, options) {
     Array.from(slides).forEach((slide) => {
       container.removeChild(slide);
+      items.push(slide);
+      slide.classList.add("slider-item");
       track.appendChild(slide);
     });
 
@@ -46,8 +50,6 @@ export default function Slider(options = defaultOptions) {
     for (let i = 0; i < track.children.length; i++) {
       track.children[i].style.minWidth = itemWidth + "px";
     }
-
-    return track.children;
   }
 
   function toPrev() {
